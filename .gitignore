@@ -1,0 +1,29 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Dependency directories
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Application environment
+.env
+
+# Stored port data
+ports.json
+
+# ssl certificate and key
+ca.cert
+ca.key
+ca.srl
+server.cert
+server.key
+server.csr
