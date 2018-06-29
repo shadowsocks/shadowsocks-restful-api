@@ -1167,15 +1167,15 @@
         console.error("ssl key and/or certificate error corrupted"), process.exit(2);
     }
     var N = new i({
-        windowMs: 9e5,
-        max: 50,
+        windowMs: 36e5,
+        max: 10,
         delayMs: 0
     });
-    y.use(N), y.use(o.json()), y.use(o.urlencoded({
+    y.use(o.json()), y.use(o.urlencoded({
         extended: !0
     })), y.use(u());
     var R = t(11);
-    y.post("/login", R.login), y.post("/", v, R.addPort), y.delete("/", v, R.removePort), 
+    y.post("/login", N, R.login), y.post("/", v, R.addPort), y.delete("/", v, R.removePort), 
     y.get("/all", v, R.getAllPorts), y.get("/traffic/all", v, R.getAllTraffic), y.get("/ping", v, R.ping), 
     E.listen(w, function() {
         console.log("listening on port", w);

@@ -172,7 +172,7 @@ A token expires in 24 hours. A new token is needed once the old one expires. Tok
 
 ## Rate limit
 
-The number of requests allowed within 15-minute window from an ip address is limited to 50. Requests exceeding the threshold will be refused with HTTP status code `429 Too Many Requests`.
+A rate limit is applied to the login api. The remaining apis are free from rate limit. The number of requests allowed within one hour window from an ip address to the login api is limited to 10. Requests exceeding the threshold will be refused with HTTP status code `429 Too Many Requests`.
 
 ## Security
 
