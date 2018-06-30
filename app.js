@@ -213,7 +213,7 @@
     } : function(r) {
         return r && "function" == typeof Symbol && r.constructor === Symbol && r !== Symbol.prototype ? "symbol" : typeof r;
     }, v = (n = T(regeneratorRuntime.mark(function r() {
-        var e, t, n, s = this;
+        var e, t, n, s, a = this;
         return regeneratorRuntime.wrap(function(r) {
             for (;;) switch (r.prev = r.next) {
               case 0:
@@ -241,40 +241,63 @@
                               case "end":
                                 return r.stop();
                             }
-                        }, r, s);
+                        }, r, a);
                     }));
                     return function(e) {
                         return r.apply(this, arguments);
                     };
-                }()), r.next = 21;
+                }()), s = e.map(function(r) {
+                    return r.port;
+                }), t.forEach(function() {
+                    var r = T(regeneratorRuntime.mark(function r(e) {
+                        return regeneratorRuntime.wrap(function(r) {
+                            for (;;) switch (r.prev = r.next) {
+                              case 0:
+                                if (s.includes(e.port)) {
+                                    r.next = 3;
+                                    break;
+                                }
+                                return r.next = 3, N(e.port);
+
+                              case 3:
+                              case 4:
+                              case "end":
+                                return r.stop();
+                            }
+                        }, r, a);
+                    }));
+                    return function(e) {
+                        return r.apply(this, arguments);
+                    };
+                }()), r.next = 23;
                 break;
 
-              case 11:
-                if (r.prev = 11, r.t0 = r.catch(3), "shadowsocks unreachable" !== r.t0.message) {
-                    r.next = 16;
+              case 13:
+                if (r.prev = 13, r.t0 = r.catch(3), "shadowsocks unreachable" !== r.t0.message) {
+                    r.next = 18;
                     break;
                 }
-                r.next = 20;
+                r.next = 22;
                 break;
 
-              case 16:
+              case 18:
                 if ("shadowsocks no response" !== r.t0.message) {
-                    r.next = 19;
+                    r.next = 21;
                     break;
                 }
-                r.next = 20;
+                r.next = 22;
                 break;
 
-              case 19:
+              case 21:
                 throw r.t0;
 
-              case 20:
-              case 21:
               case 22:
+              case 23:
+              case 24:
               case "end":
                 return r.stop();
             }
-        }, r, this, [ [ 3, 11 ] ]);
+        }, r, this, [ [ 3, 13 ] ]);
     })), function() {
         return n.apply(this, arguments);
     }), b = (s = T(regeneratorRuntime.mark(function r(e) {
@@ -455,7 +478,7 @@
         }, r, this);
     })), function() {
         return i.apply(this, arguments);
-    }), N = (c = T(regeneratorRuntime.mark(function r() {
+    }), R = (c = T(regeneratorRuntime.mark(function r() {
         var e;
         return regeneratorRuntime.wrap(function(r) {
             for (;;) switch (r.prev = r.next) {
@@ -474,7 +497,7 @@
         }, r, this);
     })), function() {
         return c.apply(this, arguments);
-    }), R = (p = T(regeneratorRuntime.mark(function r(e) {
+    }), N = (p = T(regeneratorRuntime.mark(function r(e) {
         return regeneratorRuntime.wrap(function(r) {
             for (;;) switch (r.prev = r.next) {
               case 0:
@@ -795,7 +818,7 @@
     }), v(), setInterval(function() {
         v();
     }, 3e3), r.exports.login = b, r.exports.addPort = x, r.exports.getAllPorts = y, 
-    r.exports.getAllTraffic = E, r.exports.ping = N, r.exports.removePort = R;
+    r.exports.getAllTraffic = E, r.exports.ping = R, r.exports.removePort = N;
 }, function(r, e, t) {
     "use strict";
     var n, s, a, o, u, i, c = (n = m(regeneratorRuntime.mark(function r(e, t) {
@@ -1166,7 +1189,7 @@
     } catch (r) {
         console.error("ssl key and/or certificate error corrupted"), process.exit(2);
     }
-    var N = new i({
+    var R = new i({
         windowMs: 36e5,
         max: 10,
         delayMs: 0
@@ -1174,9 +1197,9 @@
     y.use(o.json()), y.use(o.urlencoded({
         extended: !0
     })), y.use(u());
-    var R = t(11);
-    y.post("/login", N, R.login), y.post("/", v, R.addPort), y.delete("/", v, R.removePort), 
-    y.get("/all", v, R.getAllPorts), y.get("/traffic/all", v, R.getAllTraffic), y.get("/ping", v, R.ping), 
+    var N = t(11);
+    y.post("/login", R, N.login), y.post("/", v, N.addPort), y.delete("/", v, N.removePort), 
+    y.get("/all", v, N.getAllPorts), y.get("/traffic/all", v, N.getAllTraffic), y.get("/ping", v, N.ping), 
     E.listen(w, function() {
         console.log("listening on port", w);
     }).on("error", function(r) {
