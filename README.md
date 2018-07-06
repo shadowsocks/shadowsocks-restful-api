@@ -6,7 +6,7 @@ A secure, reliable, standard restful api for managing shadowsocks-libev.
 #### Download shadowsocks-restful-api:
 ```
 cd ~
-git clone https://github.com/Eggham/shadowsocks-restful-api.git
+git clone https://github.com/shadowsocks/shadowsocks-restful-api.git
 ```
 
 #### Install Node:
