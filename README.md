@@ -1,6 +1,8 @@
 # Shadowsocks Restful Api
 A secure, reliable, standard restful api for managing shadowsocks-libev.
 
+A web app that manages users, server, nodes, products, accounts, and traffic can be found from [shadowsocks-hub](https://github.com/shadowsocks/shadowsocks-hub).
+
 ## Install (Ubuntu 16.04)
 
 #### Download shadowsocks-restful-api:
