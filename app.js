@@ -81,7 +81,7 @@
                 throw new Error("illegal argument");
 
               case 9:
-                d.addPort({
+                g.addPort({
                     port: t,
                     password: n
                 });
@@ -104,7 +104,7 @@
                 throw new Error("illegal argument");
 
               case 2:
-                return e.next = 5, d.removePort(r);
+                return e.next = 5, g.removePort(r);
 
               case 5:
               case "end":
@@ -118,7 +118,7 @@
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return r = d.getPorts(), e.abrupt("return", r);
+                return r = g.getPorts(), e.abrupt("return", r);
 
               case 2:
               case "end":
@@ -148,7 +148,7 @@
             });
         };
     }
-    var p = t(1), f = t(2), l = (t(0)("dao"), f.resolve(__dirname, "./ports.json")), d = {
+    var p = t(1), f = t(2), l = (t(0)("dao"), f.resolve(__dirname, "./ports.json")), g = {
         ports: [],
         getPorts: function() {
             return this.ports;
@@ -199,7 +199,7 @@
             });
         }
     };
-    d.initPortsFromFile(), e.exports.addPort = o, e.exports.removePort = i, e.exports.getAllPorts = u;
+    g.initPortsFromFile(), e.exports.addPort = o, e.exports.removePort = i, e.exports.getAllPorts = u;
 }, function(e, r) {
     e.exports = require("portastic");
 }, function(e, r) {
@@ -208,7 +208,7 @@
     e.exports = require("unix-dgram");
 }, function(e, r, t) {
     "use strict";
-    var n, s, a, o, i, u, c, p, f, l, d, g, m, w, h, b, x, v, k = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e) {
+    var n, s, a, o, i, u, c, p, f, l, g, d, m, w, h, b, x, v, k = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e) {
         return typeof e;
     } : function(e) {
         return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
@@ -705,7 +705,7 @@
         }, e, this);
     })), function() {
         return l.apply(this, arguments);
-    }), A = (d = W(regeneratorRuntime.mark(function e() {
+    }), A = (g = W(regeneratorRuntime.mark(function e() {
         var r, t, n, s;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
@@ -745,8 +745,8 @@
             }
         }, e, this);
     })), function() {
-        return d.apply(this, arguments);
-    }), q = (g = W(regeneratorRuntime.mark(function e() {
+        return g.apply(this, arguments);
+    }), q = (d = W(regeneratorRuntime.mark(function e() {
         var r, t, n, s, a;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
@@ -779,7 +779,7 @@
             }
         }, e, this);
     })), function() {
-        return g.apply(this, arguments);
+        return d.apply(this, arguments);
     }), j = (m = W(regeneratorRuntime.mark(function e(r) {
         var t, n, s;
         return regeneratorRuntime.wrap(function(e) {
@@ -1102,7 +1102,7 @@
         },
         getCommandKeyword: function(e, r) {
             if ("libev" !== e && "python" !== e) throw new Error("illegal argument");
-            if ("ping" !== r && "getAllPorts" !== r && "add" !== r && "remove" !== r) throw new Error("illegal argument");
+            if ("ping" !== r && "getAllPorts" !== r && "getAllTraffic" !== r && "add" !== r && "remove" !== r) throw new Error("illegal argument");
             return this.commandKeywords[e][r];
         }
     };
@@ -1357,7 +1357,7 @@
         }, e, this, [ [ 0, 7 ] ]);
     })), function(e, r) {
         return o.apply(this, arguments);
-    }), d = (i = m(regeneratorRuntime.mark(function e(r, t) {
+    }), g = (i = m(regeneratorRuntime.mark(function e(r, t) {
         var n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
@@ -1394,7 +1394,7 @@
         }, e, this, [ [ 0, 7 ] ]);
     })), function(e, r) {
         return i.apply(this, arguments);
-    }), g = (u = m(regeneratorRuntime.mark(function e(r, t) {
+    }), d = (u = m(regeneratorRuntime.mark(function e(r, t) {
         var n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
@@ -1482,7 +1482,7 @@
     t(3);
     var w = t(10), h = t(5), b = t(4), x = (t(0)("controller"), process.env.LOGIN_PASSWORD), v = b.createHash("sha256").update(x + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex");
     e.exports.login = c, e.exports.addPort = p, e.exports.getAllPorts = f, e.exports.getAllTraffic = l, 
-    e.exports.ping = d, e.exports.removePort = g;
+    e.exports.ping = g, e.exports.removePort = d;
 }, function(e, r) {
     e.exports = require("passport-jwt");
 }, function(e, r) {
@@ -1502,11 +1502,11 @@
 }, function(e, r, t) {
     "use strict";
     t(19).config();
-    var n = t(18), s = t(1), a = t(17), o = t(16), i = t(15), u = t(14), c = t(4), p = t(13), f = t(12), l = f.Strategy, d = f.ExtractJwt, g = process.env.LOGIN_PASSWORD, m = c.createHash("sha256").update(g + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex"), w = void 0;
+    var n = t(18), s = t(1), a = t(17), o = t(16), i = t(15), u = t(14), c = t(4), p = t(13), f = t(12), l = f.Strategy, g = f.ExtractJwt, d = process.env.LOGIN_PASSWORD, m = c.createHash("sha256").update(d + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex"), w = void 0;
     Number(process.env.LISTEN_PORT) && Number(process.env.LISTEN_PORT) >= 1 && Number(process.env.LISTEN_PORT) <= 65535 ? w = process.env.LISTEN_PORT : (console.warn("LISTEN_PORT invalid. Using 4001."), 
     w = 4001);
     var h = {
-        jwtFromRequest: d.fromAuthHeaderAsBearerToken(),
+        jwtFromRequest: g.fromAuthHeaderAsBearerToken(),
         secretOrKey: m
     };
     p.use(new l(h, function(e, r) {
