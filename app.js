@@ -2,12 +2,12 @@
     var r = {};
     function t(n) {
         if (r[n]) return r[n].exports;
-        var s = r[n] = {
+        var a = r[n] = {
             i: n,
             l: !1,
             exports: {}
         };
-        return e[n].call(s.exports, s, s.exports, t), s.l = !0, s.exports;
+        return e[n].call(a.exports, a, a.exports, t), a.l = !0, a.exports;
     }
     t.m = e, t.c = r, t.d = function(e, r, n) {
         t.o(e, r) || Object.defineProperty(e, r, {
@@ -27,9 +27,9 @@
         if (t.r(n), Object.defineProperty(n, "default", {
             enumerable: !0,
             value: e
-        }), 2 & r && "string" != typeof e) for (var s in e) t.d(n, s, function(r) {
+        }), 2 & r && "string" != typeof e) for (var a in e) t.d(n, a, function(r) {
             return e[r];
-        }.bind(null, s));
+        }.bind(null, a));
         return n;
     }, t.n = function(e) {
         var r = e && e.__esModule ? function() {
@@ -44,19 +44,19 @@
 }([ function(e, r) {
     e.exports = require("debug");
 }, function(e, r) {
+    e.exports = require("validator");
+}, function(e, r) {
     e.exports = require("fs");
 }, function(e, r) {
     e.exports = require("path");
-}, function(e, r) {
-    e.exports = require("validator");
 }, function(e, r) {
     e.exports = require("crypto");
 }, function(e, r) {
     e.exports = require("jsonwebtoken");
 }, function(e, r, t) {
     "use strict";
-    var n, s, a, o = (n = c(regeneratorRuntime.mark(function e(r) {
-        var t, n;
+    var n, a, s, o = (n = u(regeneratorRuntime.mark(function e(r) {
+        var t, n, a;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
@@ -67,7 +67,7 @@
                 throw new Error("illegal argument");
 
               case 2:
-                if (t = r.port, n = r.password, !(!t || !Number.isInteger(t) || t < 1 || t > 65535)) {
+                if (t = r.port, n = r.password, a = r.method, !(!t || !Number.isInteger(t) || t < 1 || t > 65535)) {
                     e.next = 6;
                     break;
                 }
@@ -81,19 +81,27 @@
                 throw new Error("illegal argument");
 
               case 9:
-                g.addPort({
+                if (a && "string" == typeof a && l.isIn(a, [ "aes-128-gcm", "aes-192-gcm", "aes-256-gcm", "aes-128-cfb", "aes-192-cfb", "aes-256-cfb", "aes-128-ctr", "aes-192-ctr", "aes-256-ctr", "camellia-128-cfb", "camellia-192-cfb", "camellia-256-cfb", "bf-cfb", "chacha20-ietf-poly1305", "xchacha20-ietf-poly1305", "salsa20", "chacha20", "chacha20-ietf" ])) {
+                    e.next = 12;
+                    break;
+                }
+                throw new Error("illegal argument");
+
+              case 12:
+                m.addPort({
                     port: t,
-                    password: n
+                    password: n,
+                    method: a
                 });
 
-              case 11:
+              case 14:
               case "end":
                 return e.stop();
             }
         }, e, this);
     })), function(e) {
         return n.apply(this, arguments);
-    }), i = (s = c(regeneratorRuntime.mark(function e(r) {
+    }), i = (a = u(regeneratorRuntime.mark(function e(r) {
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
@@ -104,7 +112,7 @@
                 throw new Error("illegal argument");
 
               case 2:
-                return e.next = 5, g.removePort(r);
+                return e.next = 5, m.removePort(r);
 
               case 5:
               case "end":
@@ -112,13 +120,13 @@
             }
         }, e, this);
     })), function(e) {
-        return s.apply(this, arguments);
-    }), u = (a = c(regeneratorRuntime.mark(function e() {
+        return a.apply(this, arguments);
+    }), c = (s = u(regeneratorRuntime.mark(function e() {
         var r;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return r = g.getPorts(), e.abrupt("return", r);
+                return r = m.getPorts(), e.abrupt("return", r);
 
               case 2:
               case "end":
@@ -126,15 +134,15 @@
             }
         }, e, this);
     })), function() {
-        return a.apply(this, arguments);
+        return s.apply(this, arguments);
     });
-    function c(e) {
+    function u(e) {
         return function() {
             var r = e.apply(this, arguments);
             return new Promise(function(e, t) {
-                return function n(s, a) {
+                return function n(a, s) {
                     try {
-                        var o = r[s](a), i = o.value;
+                        var o = r[a](s), i = o.value;
                     } catch (e) {
                         return void t(e);
                     }
@@ -148,7 +156,7 @@
             });
         };
     }
-    var p = t(1), f = t(2), l = (t(0)("dao"), f.resolve(__dirname, "./ports.json")), g = {
+    var p = t(2), f = t(3), l = t(1), h = (t(0)("dao"), f.resolve(__dirname, "./ports.json")), m = {
         ports: [],
         getPorts: function() {
             return this.ports;
@@ -156,9 +164,10 @@
         setPorts: function(e) {
             if (!e || !Array.isArray(e)) throw new Error("illegal argument");
             e.forEach(function(e) {
-                var r = e.port, t = e.password;
+                var r = e.port, t = e.password, n = e.method;
                 if (!r || !Number.isInteger(r) || r < 1 || r > 65535) throw new Error("illegal argument, port illegal");
                 if (!t || "string" != typeof t || t.length < 1) throw new Error("illegal argument, password illegal");
+                if (!n || "string" != typeof n || !l.isIn(n, [ "aes-128-gcm", "aes-192-gcm", "aes-256-gcm", "aes-128-cfb", "aes-192-cfb", "aes-256-cfb", "aes-128-ctr", "aes-192-ctr", "aes-256-ctr", "camellia-128-cfb", "camellia-192-cfb", "camellia-256-cfb", "bf-cfb", "chacha20-ietf-poly1305", "xchacha20-ietf-poly1305", "salsa20", "chacha20", "chacha20-ietf" ])) throw new Error("illegal argument");
             });
             var r = e.map(function(e) {
                 return e.port;
@@ -168,15 +177,17 @@
         },
         addPort: function(e) {
             if (!e) throw new Error("illegal argument");
-            var r = e.port, t = e.password;
+            var r = e.port, t = e.password, n = e.method;
             if (!r || !Number.isInteger(r) || r < 1 || r > 65535) throw new Error("illegal argument");
             if (!t || "string" != typeof t || t.length < 1) throw new Error("illegal argument");
+            if (!n || "string" != typeof n || !l.isIn(n, [ "aes-128-gcm", "aes-192-gcm", "aes-256-gcm", "aes-128-cfb", "aes-192-cfb", "aes-256-cfb", "aes-128-ctr", "aes-192-ctr", "aes-256-ctr", "camellia-128-cfb", "camellia-192-cfb", "camellia-256-cfb", "bf-cfb", "chacha20-ietf-poly1305", "xchacha20-ietf-poly1305", "salsa20", "chacha20", "chacha20-ietf" ])) throw new Error("illegal argument");
             if (this.ports.map(function(e) {
                 return e.port;
             }).includes(r)) throw new Error("port already exists in database");
             this.ports.push({
                 port: r,
-                password: t
+                password: t,
+                method: n
             }), this.savePortsToFile();
         },
         removePort: function(e) {
@@ -187,19 +198,19 @@
         },
         initPortsFromFile: function() {
             try {
-                var e = p.readFileSync(l, "utf8");
+                var e = p.readFileSync(h, "utf8");
                 e && this.setPorts(JSON.parse(e));
             } catch (e) {
-                p.openSync(l, "w");
+                p.openSync(h, "w");
             }
         },
         savePortsToFile: function() {
-            p.writeFile(l, JSON.stringify(this.ports), function(e) {
+            p.writeFile(h, JSON.stringify(this.ports), function(e) {
                 if (e) throw e;
             });
         }
     };
-    g.initPortsFromFile(), e.exports.addPort = o, e.exports.removePort = i, e.exports.getAllPorts = u;
+    m.initPortsFromFile(), e.exports.addPort = o, e.exports.removePort = i, e.exports.getAllPorts = c;
 }, function(e, r) {
     e.exports = require("portastic");
 }, function(e, r) {
@@ -208,16 +219,16 @@
     e.exports = require("unix-dgram");
 }, function(e, r, t) {
     "use strict";
-    var n, s, a, o, i, u, c, p, f, l, g, d, m, w, h, b, x, v, k = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e) {
+    var n, a, s, o, i, c, u, p, f, l, h, m, g, d, w, b, x, v, y = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(e) {
         return typeof e;
     } : function(e) {
         return e && "function" == typeof Symbol && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
-    }, y = (n = W(regeneratorRuntime.mark(function e() {
-        var r, t, n, s, a = this;
+    }, k = (n = W(regeneratorRuntime.mark(function e() {
+        var r, t, n, a, s = this;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return e.next = 2, Q.getAllPorts();
+                return e.next = 2, U.getAllPorts();
 
               case 2:
                 return r = e.sent, e.prev = 3, e.next = 6, N();
@@ -241,30 +252,30 @@
                               case "end":
                                 return e.stop();
                             }
-                        }, e, a);
+                        }, e, s);
                     }));
                     return function(r) {
                         return e.apply(this, arguments);
                     };
-                }()), s = r.map(function(e) {
+                }()), a = r.map(function(e) {
                     return e.port;
                 }), t.forEach(function() {
                     var e = W(regeneratorRuntime.mark(function e(r) {
                         return regeneratorRuntime.wrap(function(e) {
                             for (;;) switch (e.prev = e.next) {
                               case 0:
-                                if (s.includes(r.port)) {
+                                if (a.includes(r.port)) {
                                     e.next = 3;
                                     break;
                                 }
-                                return e.next = 3, T(r.port);
+                                return e.next = 3, O(r.port);
 
                               case 3:
                               case 4:
                               case "end":
                                 return e.stop();
                             }
-                        }, e, a);
+                        }, e, s);
                     }));
                     return function(r) {
                         return e.apply(this, arguments);
@@ -300,7 +311,7 @@
         }, e, this, [ [ 3, 13 ] ]);
     })), function() {
         return n.apply(this, arguments);
-    }), E = (s = W(regeneratorRuntime.mark(function e(r) {
+    }), E = (a = W(regeneratorRuntime.mark(function e(r) {
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
@@ -311,7 +322,7 @@
                 throw new Error("illegal argument");
 
               case 2:
-                if (r === X) {
+                if (r === Y) {
                     e.next = 5;
                     break;
                 }
@@ -324,9 +335,9 @@
             }
         }, e, this);
     })), function(e) {
-        return s.apply(this, arguments);
-    }), R = (a = W(regeneratorRuntime.mark(function e(r) {
-        var t, n;
+        return a.apply(this, arguments);
+    }), R = (s = W(regeneratorRuntime.mark(function e(r) {
+        var t, n, a;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
@@ -337,7 +348,7 @@
                 throw new Error("illegal argument");
 
               case 2:
-                if (t = r.port, n = r.password, !(!t || !Number.isInteger(t) || t < 1 || t > 65535)) {
+                if (t = r.port, n = r.password, a = r.method, !(!t || !Number.isInteger(t) || t < 1 || t > 65535)) {
                     e.next = 6;
                     break;
                 }
@@ -351,26 +362,35 @@
                 throw new Error("illegal argument");
 
               case 9:
-                return e.next = 12, P({
-                    port: t,
-                    password: n
-                });
+                if (a && "string" == typeof a && H.isIn(a, [ "aes-128-gcm", "aes-192-gcm", "aes-256-gcm", "aes-128-cfb", "aes-192-cfb", "aes-256-cfb", "aes-128-ctr", "aes-192-ctr", "aes-256-ctr", "camellia-128-cfb", "camellia-192-cfb", "camellia-256-cfb", "bf-cfb", "chacha20-ietf-poly1305", "xchacha20-ietf-poly1305", "salsa20", "chacha20", "chacha20-ietf" ])) {
+                    e.next = 12;
+                    break;
+                }
+                throw new Error("illegal argument");
 
               case 12:
-                return e.next = 14, Q.addPort({
+                return e.next = 15, P({
                     port: t,
-                    password: n
+                    password: n,
+                    method: a
                 });
 
-              case 14:
+              case 15:
+                return e.next = 17, U.addPort({
+                    port: t,
+                    password: n,
+                    method: a
+                });
+
+              case 17:
               case "end":
                 return e.stop();
             }
         }, e, this);
     })), function(e) {
-        return a.apply(this, arguments);
+        return s.apply(this, arguments);
     }), P = (o = W(regeneratorRuntime.mark(function e(r) {
-        var t, n, s;
+        var t, n, a, s;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
@@ -381,7 +401,7 @@
                 throw new Error("illegal argument");
 
               case 2:
-                if (t = r.port, n = r.password, !(!t || !Number.isInteger(t) || t < 1 || t > 65535)) {
+                if (t = r.port, n = r.password, a = r.method, !(!t || !Number.isInteger(t) || t < 1 || t > 65535)) {
                     e.next = 6;
                     break;
                 }
@@ -395,71 +415,79 @@
                 throw new Error("illegal argument");
 
               case 9:
-                return e.next = 12, J(t);
+                if (a && "string" == typeof a && H.isIn(a, [ "aes-128-gcm", "aes-192-gcm", "aes-256-gcm", "aes-128-cfb", "aes-192-cfb", "aes-256-cfb", "aes-128-ctr", "aes-192-ctr", "aes-256-ctr", "camellia-128-cfb", "camellia-192-cfb", "camellia-256-cfb", "bf-cfb", "chacha20-ietf-poly1305", "xchacha20-ietf-poly1305", "salsa20", "chacha20", "chacha20-ietf" ])) {
+                    e.next = 12;
+                    break;
+                }
+                throw new Error("illegal argument");
 
               case 12:
+                return e.next = 15, J(t);
+
+              case 15:
                 if (!e.sent) {
-                    e.next = 14;
+                    e.next = 17;
                     break;
                 }
                 throw new Error("port already exists from shadowsocks");
 
-              case 14:
-                return e.next = 17, L(t);
-
               case 17:
+                return e.next = 20, L(t);
+
+              case 20:
                 if (e.sent) {
-                    e.next = 19;
+                    e.next = 22;
                     break;
                 }
                 throw new Error("port not available from operating system");
 
-              case 19:
-                return e.next = 22, Y.getType();
-
               case 22:
+                return e.next = 25, Z.getType();
+
+              case 25:
                 if ("libev" !== (s = e.sent)) {
-                    e.next = 28;
+                    e.next = 31;
                     break;
                 }
-                return e.next = 26, j({
+                return e.next = 29, j({
                     port: t,
-                    password: n
+                    password: n,
+                    method: a
                 });
 
-              case 26:
-                e.next = 34;
+              case 29:
+                e.next = 37;
                 break;
-
-              case 28:
-                if ("python" !== s) {
-                    e.next = 33;
-                    break;
-                }
-                return e.next = 31, F({
-                    port: t,
-                    password: n
-                });
 
               case 31:
-                e.next = 34;
-                break;
-
-              case 33:
-                throw new Error("should not come here");
+                if ("python" !== s) {
+                    e.next = 36;
+                    break;
+                }
+                return e.next = 34, F({
+                    port: t,
+                    password: n
+                });
 
               case 34:
-                return e.next = 37, J(t);
+                e.next = 37;
+                break;
+
+              case 36:
+                throw new Error("should not come here");
 
               case 37:
+                return e.next = 40, J(t);
+
+              case 40:
                 if (e.sent) {
-                    e.next = 39;
+                    e.next = 42;
                     break;
                 }
                 throw new Error("shadowsocks failed adding port");
 
-              case 39:
-              case 40:
+              case 42:
+              case 43:
               case "end":
                 return e.stop();
             }
@@ -471,7 +499,7 @@
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return e.next = 2, Y.getType();
+                return e.next = 2, Z.getType();
 
               case 2:
                 if ("libev" !== (r = e.sent)) {
@@ -504,12 +532,12 @@
         }, e, this);
     })), function() {
         return i.apply(this, arguments);
-    }), S = (u = W(regeneratorRuntime.mark(function e() {
+    }), S = (c = W(regeneratorRuntime.mark(function e() {
         var r, t, n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return e.next = 2, Y.getType();
+                return e.next = 2, Z.getType();
 
               case 2:
                 if ("libev" !== (r = e.sent)) {
@@ -541,20 +569,20 @@
             }
         }, e, this);
     })), function() {
-        return u.apply(this, arguments);
-    }), O = (c = W(regeneratorRuntime.mark(function e() {
+        return c.apply(this, arguments);
+    }), I = (u = W(regeneratorRuntime.mark(function e() {
         var r, t;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return e.next = 2, Y.getType();
+                return e.next = 2, Z.getType();
 
               case 2:
                 if ("libev" !== (r = e.sent)) {
                     e.next = 8;
                     break;
                 }
-                return e.next = 6, _();
+                return e.next = 6, T();
 
               case 6:
                 e.next = 14;
@@ -565,7 +593,7 @@
                     e.next = 13;
                     break;
                 }
-                return e.next = 11, I();
+                return e.next = 11, _();
 
               case 11:
                 e.next = 14;
@@ -585,8 +613,8 @@
             }
         }, e, this);
     })), function() {
-        return c.apply(this, arguments);
-    }), T = (p = W(regeneratorRuntime.mark(function e(r) {
+        return u.apply(this, arguments);
+    }), O = (p = W(regeneratorRuntime.mark(function e(r) {
         var t;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
@@ -598,7 +626,7 @@
                 throw new Error("illegal argument");
 
               case 2:
-                return e.next = 5, Y.getType();
+                return e.next = 5, Z.getType();
 
               case 5:
                 if ("libev" !== (t = e.sent)) {
@@ -646,7 +674,7 @@
                 throw new Error("operating system failed removing port");
 
               case 27:
-                return e.next = 30, Q.removePort(r);
+                return e.next = 30, U.removePort(r);
 
               case 30:
               case "end":
@@ -655,12 +683,12 @@
         }, e, this);
     })), function(e) {
         return p.apply(this, arguments);
-    }), _ = (f = W(regeneratorRuntime.mark(function e() {
+    }), T = (f = W(regeneratorRuntime.mark(function e() {
         var r, t, n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return r = Z.getCommandKeyword("libev", "ping"), e.next = 3, $(r);
+                return r = $.getCommandKeyword("libev", "ping"), e.next = 3, ee(r);
 
               case 3:
                 if ("stat:" !== (t = e.sent).substr(0, 5)) {
@@ -680,12 +708,12 @@
         }, e, this);
     })), function() {
         return f.apply(this, arguments);
-    }), I = (l = W(regeneratorRuntime.mark(function e() {
+    }), _ = (l = W(regeneratorRuntime.mark(function e() {
         var r, t;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return r = Z.getCommandKeyword("python", "ping"), e.next = 3, $(r);
+                return r = $.getCommandKeyword("python", "ping"), e.next = 3, ee(r);
 
               case 3:
                 if ("pong" !== (t = e.sent).substr(0, 4)) {
@@ -705,22 +733,23 @@
         }, e, this);
     })), function() {
         return l.apply(this, arguments);
-    }), A = (g = W(regeneratorRuntime.mark(function e() {
-        var r, t, n, s;
+    }), A = (h = W(regeneratorRuntime.mark(function e() {
+        var r, t, n, a;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return r = Z.getCommandKeyword("libev", "getAllPorts"), e.next = 3, $(r);
+                return r = $.getCommandKeyword("libev", "getAllPorts"), e.next = 3, ee(r);
 
               case 3:
                 if (t = e.sent, n = [], "[\n\t" !== t.substr(0, 3)) {
                     e.next = 10;
                     break;
                 }
-                s = JSON.parse(t), n = s.map(function(e) {
+                a = JSON.parse(t), n = a.map(function(e) {
                     return {
                         port: Number(e.server_port),
-                        password: e.password
+                        password: e.password,
+                        method: e.method
                     };
                 }), e.next = 14;
                 break;
@@ -745,13 +774,13 @@
             }
         }, e, this);
     })), function() {
-        return g.apply(this, arguments);
-    }), q = (d = W(regeneratorRuntime.mark(function e() {
-        var r, t, n, s, a;
+        return h.apply(this, arguments);
+    }), q = (m = W(regeneratorRuntime.mark(function e() {
+        var r, t, n, a, s;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return r = Z.getCommandKeyword("libev", "getAllTraffic"), e.next = 3, $(r);
+                return r = $.getCommandKeyword("libev", "getAllTraffic"), e.next = 3, ee(r);
 
               case 3:
                 if (t = e.sent, n = void 0, "stat:" !== t.substr(0, 5)) {
@@ -765,13 +794,13 @@
                 throw new Error("getAllTrafficFromLibev, received unknown message");
 
               case 10:
-                return s = Object.keys(n), a = [], s.forEach(function(e) {
+                return a = Object.keys(n), s = [], a.forEach(function(e) {
                     var r = {
                         port: Number(e),
                         traffic: Number(n[e])
                     };
-                    a.push(r);
-                }), e.abrupt("return", a);
+                    s.push(r);
+                }), e.abrupt("return", s);
 
               case 15:
               case "end":
@@ -779,69 +808,27 @@
             }
         }, e, this);
     })), function() {
-        return d.apply(this, arguments);
-    }), j = (m = W(regeneratorRuntime.mark(function e(r) {
-        var t, n, s;
-        return regeneratorRuntime.wrap(function(e) {
-            for (;;) switch (e.prev = e.next) {
-              case 0:
-                if (!(!r || "object" !== (void 0 === r ? "undefined" : k(r)) || !r.hasOwnProperty("port") || !r.hasOwnProperty("password") || isNaN(r.port) || !Number.isInteger(r.port) || r.port < 1 || r.port > 65535 || "string" != typeof r.password || r.password.length < 1)) {
-                    e.next = 2;
-                    break;
-                }
-                throw new Error("illegal argument");
-
-              case 2:
-                return t = Z.getCommandKeyword("libev", "add"), n = t + ": " + JSON.stringify({
-                    server_port: r.port,
-                    password: r.password
-                }), e.next = 7, $(n);
-
-              case 7:
-                if ("ok" !== (s = e.sent).substr(0, 2)) {
-                    e.next = 11;
-                    break;
-                }
-                e.next = 16;
-                break;
-
-              case 11:
-                if ("err" !== s.substr(0, 3)) {
-                    e.next = 15;
-                    break;
-                }
-                throw new Error("illegal command");
-
-              case 15:
-                throw new Error("sendAddToLibev, received unknown message:" + s);
-
-              case 16:
-              case 17:
-              case "end":
-                return e.stop();
-            }
-        }, e, this);
-    })), function(e) {
         return m.apply(this, arguments);
-    }), F = (w = W(regeneratorRuntime.mark(function e(r) {
-        var t, n, s;
+    }), j = (g = W(regeneratorRuntime.mark(function e(r) {
+        var t, n, a;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                if (!(!r || "object" !== (void 0 === r ? "undefined" : k(r)) || !r.hasOwnProperty("port") || !r.hasOwnProperty("password") || isNaN(r.port) || !Number.isInteger(r.port) || r.port < 1 || r.port > 65535 || "string" != typeof r.password || r.password.length < 1)) {
+                if (!(!r || "object" !== (void 0 === r ? "undefined" : y(r)) || !r.hasOwnProperty("port") || !r.hasOwnProperty("password") || isNaN(r.port) || !Number.isInteger(r.port) || r.port < 1 || r.port > 65535 || "string" != typeof r.password || r.password.length < 1)) {
                     e.next = 2;
                     break;
                 }
                 throw new Error("illegal argument");
 
               case 2:
-                return t = Z.getCommandKeyword("python", "add"), n = t + ": " + JSON.stringify({
+                return t = $.getCommandKeyword("libev", "add"), n = t + ": " + JSON.stringify({
                     server_port: r.port,
-                    password: r.password
-                }), e.next = 7, $(n);
+                    password: r.password,
+                    method: r.method
+                }), e.next = 7, ee(n);
 
               case 7:
-                if ("ok" !== (s = e.sent).substr(0, 2)) {
+                if ("ok" !== (a = e.sent).substr(0, 2)) {
                     e.next = 11;
                     break;
                 }
@@ -849,14 +836,14 @@
                 break;
 
               case 11:
-                if ("err" !== s.substr(0, 3)) {
+                if ("err" !== a.substr(0, 3)) {
                     e.next = 15;
                     break;
                 }
                 throw new Error("illegal command");
 
               case 15:
-                throw new Error("sendAddToPython, received unknown message:" + s);
+                throw new Error("sendAddToLibev, received unknown message:" + a);
 
               case 16:
               case 17:
@@ -865,8 +852,51 @@
             }
         }, e, this);
     })), function(e) {
-        return w.apply(this, arguments);
-    }), J = (h = W(regeneratorRuntime.mark(function e(r) {
+        return g.apply(this, arguments);
+    }), F = (d = W(regeneratorRuntime.mark(function e(r) {
+        var t, n, a;
+        return regeneratorRuntime.wrap(function(e) {
+            for (;;) switch (e.prev = e.next) {
+              case 0:
+                if (!(!r || "object" !== (void 0 === r ? "undefined" : y(r)) || !r.hasOwnProperty("port") || !r.hasOwnProperty("password") || isNaN(r.port) || !Number.isInteger(r.port) || r.port < 1 || r.port > 65535 || "string" != typeof r.password || r.password.length < 1)) {
+                    e.next = 2;
+                    break;
+                }
+                throw new Error("illegal argument");
+
+              case 2:
+                return t = $.getCommandKeyword("python", "add"), n = t + ": " + JSON.stringify({
+                    server_port: r.port,
+                    password: r.password
+                }), e.next = 7, ee(n);
+
+              case 7:
+                if ("ok" !== (a = e.sent).substr(0, 2)) {
+                    e.next = 11;
+                    break;
+                }
+                e.next = 16;
+                break;
+
+              case 11:
+                if ("err" !== a.substr(0, 3)) {
+                    e.next = 15;
+                    break;
+                }
+                throw new Error("illegal command");
+
+              case 15:
+                throw new Error("sendAddToPython, received unknown message:" + a);
+
+              case 16:
+              case 17:
+              case "end":
+                return e.stop();
+            }
+        }, e, this);
+    })), function(e) {
+        return d.apply(this, arguments);
+    }), J = (w = W(regeneratorRuntime.mark(function e(r) {
         var t, n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
@@ -891,7 +921,7 @@
             }
         }, e, this);
     })), function(e) {
-        return h.apply(this, arguments);
+        return w.apply(this, arguments);
     }), L = (b = W(regeneratorRuntime.mark(function e(r) {
         var t;
         return regeneratorRuntime.wrap(function(e) {
@@ -904,7 +934,7 @@
                 throw new Error("illegal argument");
 
               case 2:
-                return e.next = 5, z.test(r);
+                return e.next = 5, Q.test(r);
 
               case 5:
                 return t = e.sent, e.abrupt("return", t);
@@ -917,7 +947,7 @@
     })), function(e) {
         return b.apply(this, arguments);
     }), K = (x = W(regeneratorRuntime.mark(function e(r) {
-        var t, n, s;
+        var t, n, a;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
@@ -928,12 +958,12 @@
                 throw new Error("illegal argument");
 
               case 2:
-                return t = Z.getCommandKeyword("libev", "remove"), n = t + ": " + JSON.stringify({
+                return t = $.getCommandKeyword("libev", "remove"), n = t + ": " + JSON.stringify({
                     server_port: r
-                }), e.next = 7, $(n);
+                }), e.next = 7, ee(n);
 
               case 7:
-                if ("ok" !== (s = e.sent).substr(0, 2)) {
+                if ("ok" !== (a = e.sent).substr(0, 2)) {
                     e.next = 11;
                     break;
                 }
@@ -941,14 +971,14 @@
                 break;
 
               case 11:
-                if ("err" !== s.substr(0, 3)) {
+                if ("err" !== a.substr(0, 3)) {
                     e.next = 15;
                     break;
                 }
                 throw new Error("illegal command");
 
               case 15:
-                throw new Error("sendRemoveFromLibev, received unknown message:" + s);
+                throw new Error("sendRemoveFromLibev, received unknown message:" + a);
 
               case 16:
               case 17:
@@ -959,7 +989,7 @@
     })), function(e) {
         return x.apply(this, arguments);
     }), C = (v = W(regeneratorRuntime.mark(function e(r) {
-        var t, n, s;
+        var t, n, a;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
@@ -970,12 +1000,12 @@
                 throw new Error("illegal argument");
 
               case 2:
-                return t = Z.getCommandKeyword("python", "remove"), n = t + ": " + JSON.stringify({
+                return t = $.getCommandKeyword("python", "remove"), n = t + ": " + JSON.stringify({
                     server_port: r
-                }), e.next = 7, $(n);
+                }), e.next = 7, ee(n);
 
               case 7:
-                if ("ok" !== (s = e.sent).substr(0, 2)) {
+                if ("ok" !== (a = e.sent).substr(0, 2)) {
                     e.next = 11;
                     break;
                 }
@@ -983,14 +1013,14 @@
                 break;
 
               case 11:
-                if ("err" !== s.substr(0, 3)) {
+                if ("err" !== a.substr(0, 3)) {
                     e.next = 15;
                     break;
                 }
                 throw new Error("illegal command");
 
               case 15:
-                throw new Error("sendRemoveFromPython, received unknown message:" + s);
+                throw new Error("sendRemoveFromPython, received unknown message:" + a);
 
               case 16:
               case 17:
@@ -1005,9 +1035,9 @@
         return function() {
             var r = e.apply(this, arguments);
             return new Promise(function(e, t) {
-                return function n(s, a) {
+                return function n(a, s) {
                     try {
-                        var o = r[s](a), i = o.value;
+                        var o = r[a](s), i = o.value;
                     } catch (e) {
                         return void t(e);
                     }
@@ -1021,8 +1051,8 @@
             });
         };
     }
-    var M = t(9), B = t(1), D = t(2), G = new (t(8))(), H = (t(3), t(0)("service"), 
-    M.createSocket("unix_dgram")), z = t(7), Q = t(6), U = D.resolve(__dirname, "/tmp/shadowsocks-manager.sock"), V = D.resolve(__dirname, "/tmp/ss-controller.sock"), X = process.env.LOGIN_PASSWORD, Y = {
+    var B = t(9), M = t(2), D = t(3), G = new (t(8))(), H = t(1), z = (t(0)("service"), 
+    B.createSocket("unix_dgram")), Q = t(7), U = t(6), V = D.resolve(__dirname, "/tmp/shadowsocks-manager.sock"), X = D.resolve(__dirname, "/tmp/ss-controller.sock"), Y = process.env.LOGIN_PASSWORD, Z = {
         type: null,
         getType: function() {
             var e = W(regeneratorRuntime.mark(function e() {
@@ -1048,7 +1078,7 @@
                         break;
 
                       case 9:
-                        return e.next = 11, $("ping");
+                        return e.next = 11, ee("ping");
 
                       case 11:
                         if ("stat:" !== (r = e.sent).substr(0, 5)) {
@@ -1083,7 +1113,7 @@
                 return e.apply(this, arguments);
             };
         }()
-    }, Z = {
+    }, $ = {
         commandKeywords: {
             libev: {
                 ping: "ping",
@@ -1106,25 +1136,25 @@
             return this.commandKeywords[e][r];
         }
     };
-    function $(e) {
+    function ee(e) {
         if (!e || "string" != typeof e) throw new Error("illegal argument");
         if ("ping" !== e && "list" !== e && "add: " !== e.substr(0, 5) && "remove: " !== e.substr(0, 8)) throw new Error("illegal argument");
         if ("add: " === e.substr(0, 5)) {
             var r = e.substr(5);
-            if (!ee(r)) throw new Error("illegal argument");
+            if (!re(r)) throw new Error("illegal argument");
             var t = JSON.parse(r);
             if (!t.hasOwnProperty("server_port") || !t.hasOwnProperty("password") || isNaN(t.server_port) || !Number.isInteger(t.server_port) || t.server_port < 1 || t.server_port > 65535 || "string" != typeof t.password || t.password.length < 1) throw new Error("illegal argument");
         }
         if ("remove: " === e.substr(0, 8)) {
             var n = e.substr(8);
-            if (!ee(n)) throw new Error("illegal argument");
-            var s = JSON.parse(n);
-            if (!s.hasOwnProperty("server_port") || isNaN(s.server_port) || !Number.isInteger(s.server_port) || s.server_port < 1 || s.server_port > 65535) throw new Error("illegal argument");
+            if (!re(n)) throw new Error("illegal argument");
+            var a = JSON.parse(n);
+            if (!a.hasOwnProperty("server_port") || isNaN(a.server_port) || !Number.isInteger(a.server_port) || a.server_port < 1 || a.server_port > 65535) throw new Error("illegal argument");
         }
         return G.acquire("key", function() {
             return new Promise(function(r, t) {
                 var n = !1;
-                H.once("message", function(e) {
+                z.once("message", function(e) {
                     n = !0;
                     var t = new String(e);
                     r(t);
@@ -1132,22 +1162,22 @@
                 try {
                     !function(e) {
                         var r = new Buffer(e);
-                        H.send(r, 0, r.length, U, function(e) {
+                        z.send(r, 0, r.length, V, function(e) {
                             if (e) throw new Error("shadowsocks unreachable");
                         });
                     }(e);
                 } catch (e) {
-                    throw H.removeAllListeners("message"), e;
+                    throw z.removeAllListeners("message"), e;
                 }
                 setTimeout(function() {
-                    n || (H.removeAllListeners("message"), t(new Error("shadowsocks no response")));
+                    n || (z.removeAllListeners("message"), t(new Error("shadowsocks no response")));
                 }, 1e3);
             });
         }, {}).then(function(e) {
             return e;
         });
     }
-    function ee(e) {
+    function re(e) {
         try {
             JSON.parse(e);
         } catch (e) {
@@ -1155,16 +1185,16 @@
         }
         return !0;
     }
-    B.existsSync(V) && B.unlinkSync(V), H.bind(V), H.on("error", function(e) {
+    M.existsSync(X) && M.unlinkSync(X), z.bind(X), z.on("error", function(e) {
         throw new Error("client on error, shadowsocks error", e);
-    }), y(), setInterval(function() {
-        y();
+    }), k(), setInterval(function() {
+        k();
     }, 3e3), e.exports.login = E, e.exports.addPort = R, e.exports.getAllPorts = N, 
-    e.exports.getAllTraffic = S, e.exports.ping = O, e.exports.removePort = T;
+    e.exports.getAllTraffic = S, e.exports.ping = I, e.exports.removePort = O;
 }, function(e, r, t) {
     "use strict";
-    var n, s, a, o, i, u, c = (n = m(regeneratorRuntime.mark(function e(r, t) {
-        var n, s;
+    var n, a, s, o, i, c, u = (n = g(regeneratorRuntime.mark(function e(r, t) {
+        var n, a;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
@@ -1177,13 +1207,13 @@
                 }));
 
               case 4:
-                return e.prev = 4, e.next = 7, w.login(r.body.password);
+                return e.prev = 4, e.next = 7, d.login(r.body.password);
 
               case 7:
-                return s = h.sign({}, v, {
+                return a = w.sign({}, v, {
                     expiresIn: 86400
                 }), e.abrupt("return", t.status(201).send({
-                    token: s
+                    token: a
                 }));
 
               case 11:
@@ -1206,7 +1236,7 @@
         }, e, this, [ [ 4, 11 ] ]);
     })), function(e, r) {
         return n.apply(this, arguments);
-    }), p = (s = m(regeneratorRuntime.mark(function e(r, t) {
+    }), p = (a = g(regeneratorRuntime.mark(function e(r, t) {
         var n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
@@ -1214,81 +1244,83 @@
                 if ("string" == typeof r.body.port && (r.body.port = parseInt(r.body.port)), r.checkBody("port", "Invalid port number").isInt({
                     min: 1,
                     max: 65535
-                }), r.checkBody("password", "Invalid password").notEmpty(), !(n = r.validationErrors())) {
-                    e.next = 7;
+                }), r.checkBody("password", "Invalid password").notEmpty(), r.checkBody("method", "Invalid encryption method").optional().isIn([ "aes-128-gcm", "aes-192-gcm", "aes-256-gcm", "aes-128-cfb", "aes-192-cfb", "aes-256-cfb", "aes-128-ctr", "aes-192-ctr", "aes-256-ctr", "camellia-128-cfb", "camellia-192-cfb", "camellia-256-cfb", "bf-cfb", "chacha20-ietf-poly1305", "xchacha20-ietf-poly1305", "salsa20", "chacha20", "chacha20-ietf" ]), 
+                !(n = r.validationErrors())) {
+                    e.next = 8;
                     break;
                 }
                 return e.abrupt("return", t.status(400).send({
                     error: n
                 }));
 
-              case 7:
-                return e.prev = 8, e.next = 11, w.addPort(r.body);
-
-              case 11:
-                return e.abrupt("return", t.status(201).end());
+              case 8:
+                return r.body.method || (r.body.method = "aes-256-cfb"), e.prev = 11, e.next = 14, 
+                d.addPort(r.body);
 
               case 14:
-                if (e.prev = 14, e.t0 = e.catch(8), "port already exists from shadowsocks" !== e.t0.message) {
-                    e.next = 18;
+                return e.abrupt("return", t.status(201).end());
+
+              case 17:
+                if (e.prev = 17, e.t0 = e.catch(11), "port already exists from shadowsocks" !== e.t0.message) {
+                    e.next = 21;
                     break;
                 }
                 return e.abrupt("return", t.status(409).end());
 
-              case 18:
+              case 21:
                 if ("port not available from operating system" !== e.t0.message) {
-                    e.next = 21;
+                    e.next = 24;
                     break;
                 }
                 return e.abrupt("return", t.status(410).end());
 
-              case 21:
+              case 24:
                 if ("shadowsocks failed adding port" !== e.t0.message) {
-                    e.next = 24;
+                    e.next = 27;
                     break;
                 }
                 return e.abrupt("return", t.status(422).end());
 
-              case 24:
+              case 27:
                 if ("operating system failed adding port" !== e.t0.message) {
-                    e.next = 27;
+                    e.next = 30;
                     break;
                 }
                 return e.abrupt("return", t.status(427).end());
 
-              case 27:
+              case 30:
                 if ("shadowsocks unreachable" !== e.t0.message) {
-                    e.next = 30;
+                    e.next = 33;
                     break;
                 }
                 return e.abrupt("return", t.status(424).end());
 
-              case 30:
+              case 33:
                 if ("shadowsocks no response" !== e.t0.message) {
-                    e.next = 33;
+                    e.next = 36;
                     break;
                 }
                 return e.abrupt("return", t.status(425).end());
 
-              case 33:
+              case 36:
                 return e.abrupt("return", t.status(500).send({
                     error: e.t0
                 }));
 
-              case 35:
-              case 36:
+              case 38:
+              case 39:
               case "end":
                 return e.stop();
             }
-        }, e, this, [ [ 8, 14 ] ]);
+        }, e, this, [ [ 11, 17 ] ]);
     })), function(e, r) {
-        return s.apply(this, arguments);
-    }), f = (a = m(regeneratorRuntime.mark(function e(r, t) {
+        return a.apply(this, arguments);
+    }), f = (s = g(regeneratorRuntime.mark(function e(r, t) {
         var n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return e.prev = 0, e.next = 3, w.getAllPorts();
+                return e.prev = 0, e.next = 3, d.getAllPorts();
 
               case 3:
                 return n = e.sent, e.abrupt("return", t.status(200).send(n));
@@ -1319,13 +1351,13 @@
             }
         }, e, this, [ [ 0, 7 ] ]);
     })), function(e, r) {
-        return a.apply(this, arguments);
-    }), l = (o = m(regeneratorRuntime.mark(function e(r, t) {
+        return s.apply(this, arguments);
+    }), l = (o = g(regeneratorRuntime.mark(function e(r, t) {
         var n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return e.prev = 0, e.next = 3, w.getAllTraffic();
+                return e.prev = 0, e.next = 3, d.getAllTraffic();
 
               case 3:
                 return n = e.sent, e.abrupt("return", t.status(200).send(n));
@@ -1357,12 +1389,12 @@
         }, e, this, [ [ 0, 7 ] ]);
     })), function(e, r) {
         return o.apply(this, arguments);
-    }), g = (i = m(regeneratorRuntime.mark(function e(r, t) {
+    }), h = (i = g(regeneratorRuntime.mark(function e(r, t) {
         var n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
               case 0:
-                return e.prev = 0, e.next = 3, w.ping();
+                return e.prev = 0, e.next = 3, d.ping();
 
               case 3:
                 return n = e.sent, e.abrupt("return", t.status(200).send(n));
@@ -1394,7 +1426,7 @@
         }, e, this, [ [ 0, 7 ] ]);
     })), function(e, r) {
         return i.apply(this, arguments);
-    }), d = (u = m(regeneratorRuntime.mark(function e(r, t) {
+    }), m = (c = g(regeneratorRuntime.mark(function e(r, t) {
         var n;
         return regeneratorRuntime.wrap(function(e) {
             for (;;) switch (e.prev = e.next) {
@@ -1412,7 +1444,7 @@
                 }));
 
               case 6:
-                return e.prev = 7, e.next = 10, w.removePort(Number(r.query.port));
+                return e.prev = 7, e.next = 10, d.removePort(Number(r.query.port));
 
               case 10:
                 return e.abrupt("return", t.status(204).end());
@@ -1457,15 +1489,15 @@
             }
         }, e, this, [ [ 7, 13 ] ]);
     })), function(e, r) {
-        return u.apply(this, arguments);
+        return c.apply(this, arguments);
     });
-    function m(e) {
+    function g(e) {
         return function() {
             var r = e.apply(this, arguments);
             return new Promise(function(e, t) {
-                return function n(s, a) {
+                return function n(a, s) {
                     try {
-                        var o = r[s](a), i = o.value;
+                        var o = r[a](s), i = o.value;
                     } catch (e) {
                         return void t(e);
                     }
@@ -1479,10 +1511,10 @@
             });
         };
     }
-    t(3);
-    var w = t(10), h = t(5), b = t(4), x = (t(0)("controller"), process.env.LOGIN_PASSWORD), v = b.createHash("sha256").update(x + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex");
-    e.exports.login = c, e.exports.addPort = p, e.exports.getAllPorts = f, e.exports.getAllTraffic = l, 
-    e.exports.ping = g, e.exports.removePort = d;
+    t(1);
+    var d = t(10), w = t(5), b = t(4), x = (t(0)("controller"), process.env.LOGIN_PASSWORD), v = b.createHash("sha256").update(x + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex");
+    e.exports.login = u, e.exports.addPort = p, e.exports.getAllPorts = f, e.exports.getAllTraffic = l, 
+    e.exports.ping = h, e.exports.removePort = m;
 }, function(e, r) {
     e.exports = require("passport-jwt");
 }, function(e, r) {
@@ -1502,14 +1534,14 @@
 }, function(e, r, t) {
     "use strict";
     t(19).config();
-    var n = t(18), s = t(1), a = t(17), o = t(16), i = t(15), u = t(14), c = t(4), p = t(13), f = t(12), l = f.Strategy, g = f.ExtractJwt, d = process.env.LOGIN_PASSWORD, m = c.createHash("sha256").update(d + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex"), w = void 0;
-    Number(process.env.LISTEN_PORT) && Number(process.env.LISTEN_PORT) >= 1 && Number(process.env.LISTEN_PORT) <= 65535 ? w = process.env.LISTEN_PORT : (console.warn("LISTEN_PORT invalid. Using 4001."), 
-    w = 4001);
-    var h = {
-        jwtFromRequest: g.fromAuthHeaderAsBearerToken(),
-        secretOrKey: m
+    var n = t(18), a = t(2), s = t(17), o = t(16), i = t(15), c = t(14), u = t(4), p = t(13), f = t(12), l = f.Strategy, h = f.ExtractJwt, m = process.env.LOGIN_PASSWORD, g = u.createHash("sha256").update(m + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex"), d = void 0;
+    Number(process.env.LISTEN_PORT) && Number(process.env.LISTEN_PORT) >= 1 && Number(process.env.LISTEN_PORT) <= 65535 ? d = process.env.LISTEN_PORT : (console.warn("LISTEN_PORT invalid. Using 4001."), 
+    d = 4001);
+    var w = {
+        jwtFromRequest: h.fromAuthHeaderAsBearerToken(),
+        secretOrKey: g
     };
-    p.use(new l(h, function(e, r) {
+    p.use(new l(w, function(e, r) {
         return r(null, {
             id: 1
         });
@@ -1518,35 +1550,35 @@
         session: !1
     }), x = void 0, v = void 0;
     try {
-        x = s.readFileSync("./server.key", "utf8"), v = s.readFileSync("./server.cert", "utf8");
+        x = a.readFileSync("./server.key", "utf8"), v = a.readFileSync("./server.cert", "utf8");
     } catch (e) {
         console.error("reading ./server.key or ./server.cert failed"), process.exit(1);
     }
-    var k = {
+    var y = {
         key: x,
         cert: v
-    }, y = n(), E = void 0;
+    }, k = n(), E = void 0;
     try {
-        E = a.createServer(k, y);
+        E = s.createServer(y, k);
     } catch (e) {
         console.error("ssl key and/or certificate error corrupted"), process.exit(2);
     }
-    var R = new u({
+    var R = new c({
         windowMs: 36e5,
         max: 10,
         delayMs: 0
     });
-    y.use(o.json()), y.use(o.urlencoded({
+    k.use(o.json()), k.use(o.urlencoded({
         extended: !0
-    })), y.use(i());
+    })), k.use(i());
     var P = t(11);
-    y.post("/login", R, P.login), y.post("/", b, P.addPort), y.delete("/", b, P.removePort), 
-    y.get("/all", b, P.getAllPorts), y.get("/traffic/all", b, P.getAllTraffic), y.get("/ping", b, P.ping), 
-    E.listen(w, function() {
-        console.log("listening on port", w);
+    k.post("/login", R, P.login), k.post("/", b, P.addPort), k.delete("/", b, P.removePort), 
+    k.get("/all", b, P.getAllPorts), k.get("/traffic/all", b, P.getAllTraffic), k.get("/ping", b, P.ping), 
+    E.listen(d, function() {
+        console.log("listening on port", d);
     }).on("error", function(e) {
         console.error("express server error: " + e), process.exit(3);
-    }), e.exports = y;
+    }), e.exports = k;
 }, function(e, r) {
     e.exports = require("babel-polyfill");
 }, function(e, r, t) {

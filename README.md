@@ -49,7 +49,7 @@ echo 'LISTEN_PORT = 4001' >> .env
 
 #### Run shadowsocks-libev:
 ```
-ss-manager -m aes-256-cfb -u --manager-address /tmp/shadowsocks-manager.sock --fast-open
+ss-manager -u --manager-address /tmp/shadowsocks-manager.sock --fast-open
 ```
 
 #### Run shadowsocks-restful-api:
@@ -105,14 +105,36 @@ Response example:
 | Request method:               |  POST                                                             |
 | Request URL:                  |  https://host_name:port/                                          |
 | Request Header:               |  Content-Type: application/json <br> Authorization: Bearer your_authentication_toke |
-| Request Body:                 |  {"port": port_number, "password":"port_password"}                |
+| Request Body:                 |  {"port": port_number, "password": "port_password", "method": "encryption_method"}                |
 | Response HTTP Status Code:    |  201 Created                                                      |
 | Response Error Status Code:   |  401 Unauthorized <br> 409 (port already exists from shadowsocks) <br> 410 (port not available from operating system) <br> 422 (shadowsocks failed adding port) <br> 427 (operating system failed adding port) 424 (shadowsocks unreachable) <br> 425 (shadowsocks no response) <br> 500 Internal Server Error |
 
 Request example (curl):  
 ```
-curl -ik -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1Mjk0ODg0MTcsImV4cCI6MTUyOTU3NDgxN30.9wdDV4hXvHdCkWhcOFpW2YXvSL6WupWSj2kTI6XMhFk" -X POST -d '{"port": 50000,"password":"2owkq9wu2elwst7"}' https://localhost:4001/
+curl -ik -H "Content-Type: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1Mjk0ODg0MTcsImV4cCI6MTUyOTU3NDgxN30.9wdDV4hXvHdCkWhcOFpW2YXvSL6WupWSj2kTI6XMhFk" -X POST -d '{"port": 50000,"password":"2owkq9wu2elwst7","method":"chacha20-ietf-poly1305"}' https://localhost:4001/
 ```
+
+Supported encryption methods are: 
+  * `aes-128-gcm`
+  * `aes-192-gcm`
+  * `aes-256-gcm`
+  * `aes-128-cfb`
+  * `aes-192-cfb`
+  * `aes-256-cfb`
+  * `aes-128-ctr`
+  * `aes-192-ctr`
+  * `aes-256-ctr`
+  * `camellia-128-cfb`
+  * `camellia-192-cfb`
+  * `camellia-256-cfb`
+  * `bf-cfb`
+  * `chacha20-ietf-poly1305`
+  * `xchacha20-ietf-poly1305`
+  * `salsa20`
+  * `chacha20`
+  * `chacha20-ietf`
+
+  If the `method` field is not supplied, the default method is `aes-256-cfb`.
 
 #### Delete a port
 |                               |                                                                   |
@@ -135,7 +157,7 @@ curl -ik -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQi
 | Request URL:                  |  https://host_name:port/all                                       |
 | Request Header:               |  Authorization: Bearer your_authentication_toke                   |
 | Response HTTP Status Code:    |  200 OK                                                           |
-| Response Body:                |  [{"port":port_number, "password":"port_password"}, ... ]         |
+| Response Body:                |  [{"port":port_number, "password":"port_password","method":"encryption_method"}, ... ]         |
 | Response Error Status Code:   |  401 Unauthorized <br>424 (shadowsocks unreachable) <br> 425 (shadowsocks no response) <br> 500 Internal Server Error |
 
 Request example (curl):  
@@ -144,7 +166,7 @@ curl -ik -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQi
 ```
 Response example:  
 ```json
-[{"port": 50000,"password":"2owkq9wu2elwst7"}, {"port": 50001,"password":"dowl3829j3suniw6"}]
+[{"port": 50000,"password":"2owkq9wu2elwst7","method":"chacha20-ietf-poly1305"}, {"port": 50001,"password":"dowl3829j3suniw6","method":"aes-256-cfb"}]
 ```
 
 #### Get traffic for all ports
