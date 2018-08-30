@@ -27,3 +27,6 @@ ca.srl
 server.cert
 server.key
 server.csr
+
+# package-lock.json
+package-lock.json

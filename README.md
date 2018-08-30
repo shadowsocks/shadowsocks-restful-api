@@ -13,12 +13,13 @@ git clone https://github.com/shadowsocks/shadowsocks-restful-api.git
 
 #### Install Node:
 ```
-curl -sL https://deb.nodesource.com/setup_8.x | bash -
-apt-get install nodejs -y
+curl -sL https://deb.nodesource.com/setup_8.x | sudo bash -
+sudo apt-get install nodejs -y
 ```
 
-#### Install dependency:
+#### Install dependencies:
 ```
+sudo apt-get install -y python-dev make g++
 cd ~/shadowsocks-restful-api
 npm i
 ```

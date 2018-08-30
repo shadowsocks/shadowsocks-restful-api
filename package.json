@@ -1,6 +1,6 @@
 {
   "name": "shadowsocks-restful-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Secure, reliable, standard restful api for managing shadowsocks-libev",
   "main": "app.js",
   "scripts": {
