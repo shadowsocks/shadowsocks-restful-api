@@ -19,7 +19,7 @@ sudo apt-get install nodejs -y
 
 #### Install dependencies:
 ```
-sudo apt-get install -y python-dev make g++
+sudo apt-get install -y python-dev make g++ screen
 cd ~/shadowsocks-restful-api
 npm i
 ```
@@ -48,15 +48,23 @@ echo 'LISTEN_PORT = 4001' >> .env
 
 ## Run
 
-#### Run shadowsocks-libev:
+#### Run shadowsocks-libev in the background:
 ```
-ss-manager -u --manager-address /tmp/shadowsocks-manager.sock --fast-open
+screen -dm ss-manager -u --manager-address /tmp/shadowsocks-manager.sock --fast-open
 ```
 
-#### Run shadowsocks-restful-api:
+#### Run shadowsocks-restful-api in the background:
 ```
 cd ~/shadowsocks-restful-api
-node app.js
+screen -dm node app.js
+```
+
+#### Run shadowsocks-libev and shadowsocks-restful-api upon restart
+Add the following lines to `/etc/rc.local`:
+```
+screen -dm ss-manager -u --manager-address /tmp/shadowsocks-manager.sock --fast-open
+cd ~/shadowsocks-restful-api
+screen -dm node app.js
 ```
 
 ## API
