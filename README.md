@@ -59,14 +59,6 @@ cd ~/shadowsocks-restful-api
 screen -dm node app.js
 ```
 
-#### Run shadowsocks-libev and shadowsocks-restful-api upon restart
-Add the following lines to `/etc/rc.local`:
-```
-screen -dm ss-manager -u --manager-address /tmp/shadowsocks-manager.sock --fast-open
-cd ~/shadowsocks-restful-api
-screen -dm node app.js
-```
-
 ## API
 
 #### Login
