@@ -195,10 +195,6 @@ All the api requests except for login require an Authorization header. The heade
 
 A token expires in 24 hours. A new token is needed once the old one expires. Tokens can be re-used in multiple requests before exiration.
 
-## Rate limit
-
-A rate limit is applied to the login api. The remaining apis are free from rate limit. The number of requests allowed within one hour window from an ip address to the login api is limited to 10. Requests exceeding the threshold will be refused with HTTP status code `429 Too Many Requests`.
-
 ## Security
 
 This program encrypts all the traffic end-to-end using https. It requires you to set up a digital certificate. There are many ways that you can get a free digital certificate. You may also generate your own self-signed digital certificate:

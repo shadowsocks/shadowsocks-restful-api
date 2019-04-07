@@ -40,7 +40,7 @@
         return t.d(r, "a", r), r;
     }, t.o = function(e, r) {
         return Object.prototype.hasOwnProperty.call(e, r);
-    }, t.p = "", t(t.s = 22);
+    }, t.p = "", t(t.s = 21);
 }([ function(e, r) {
     e.exports = require("debug");
 }, function(e, r) {
@@ -1520,8 +1520,6 @@
 }, function(e, r) {
     e.exports = require("passport");
 }, function(e, r) {
-    e.exports = require("express-rate-limit");
-}, function(e, r) {
     e.exports = require("express-validator");
 }, function(e, r) {
     e.exports = require("body-parser");
@@ -1533,54 +1531,49 @@
     e.exports = require("dotenv");
 }, function(e, r, t) {
     "use strict";
-    t(19).config();
-    var n = t(18), a = t(2), s = t(17), o = t(16), i = t(15), c = t(14), u = t(4), p = t(13), f = t(12), l = f.Strategy, h = f.ExtractJwt, m = process.env.LOGIN_PASSWORD, g = u.createHash("sha256").update(m + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex"), d = void 0;
-    Number(process.env.LISTEN_PORT) && Number(process.env.LISTEN_PORT) >= 1 && Number(process.env.LISTEN_PORT) <= 65535 ? d = process.env.LISTEN_PORT : (console.warn("LISTEN_PORT invalid. Using 4001."), 
-    d = 4001);
-    var w = {
-        jwtFromRequest: h.fromAuthHeaderAsBearerToken(),
-        secretOrKey: g
+    t(18).config();
+    var n = t(17), a = t(2), s = t(16), o = t(15), i = t(14), c = t(4), u = t(13), p = t(12), f = p.Strategy, l = p.ExtractJwt, h = process.env.LOGIN_PASSWORD, m = c.createHash("sha256").update(h + "W93Ciowi2398(@qi30vmbj02i@WWSoekwoiK").digest("hex"), g = void 0;
+    Number(process.env.LISTEN_PORT) && Number(process.env.LISTEN_PORT) >= 1 && Number(process.env.LISTEN_PORT) <= 65535 ? g = process.env.LISTEN_PORT : (console.warn("LISTEN_PORT invalid. Using 4001."), 
+    g = 4001);
+    var d = {
+        jwtFromRequest: l.fromAuthHeaderAsBearerToken(),
+        secretOrKey: m
     };
-    p.use(new l(w, function(e, r) {
+    u.use(new f(d, function(e, r) {
         return r(null, {
             id: 1
         });
     }));
-    var b = p.authenticate("jwt", {
+    var w = u.authenticate("jwt", {
         session: !1
-    }), x = void 0, v = void 0;
+    }), b = void 0, x = void 0;
     try {
-        x = a.readFileSync("./server.key", "utf8"), v = a.readFileSync("./server.cert", "utf8");
+        b = a.readFileSync("./server.key", "utf8"), x = a.readFileSync("./server.cert", "utf8");
     } catch (e) {
         console.error("reading ./server.key or ./server.cert failed"), process.exit(1);
     }
-    var y = {
-        key: x,
-        cert: v
-    }, k = n(), E = void 0;
+    var v = {
+        key: b,
+        cert: x
+    }, y = n(), k = void 0;
     try {
-        E = s.createServer(y, k);
+        k = s.createServer(v, y);
     } catch (e) {
         console.error("ssl key and/or certificate error corrupted"), process.exit(2);
     }
-    var R = new c({
-        windowMs: 36e5,
-        max: 10,
-        delayMs: 0
-    });
-    k.use(o.json()), k.use(o.urlencoded({
+    y.use(o.json()), y.use(o.urlencoded({
         extended: !0
-    })), k.use(i());
-    var P = t(11);
-    k.post("/login", R, P.login), k.post("/", b, P.addPort), k.delete("/", b, P.removePort), 
-    k.get("/all", b, P.getAllPorts), k.get("/traffic/all", b, P.getAllTraffic), k.get("/ping", b, P.ping), 
-    E.listen(d, function() {
-        console.log("listening on port", d);
+    })), y.use(i());
+    var E = t(11);
+    y.post("/login", E.login), y.post("/", w, E.addPort), y.delete("/", w, E.removePort), 
+    y.get("/all", w, E.getAllPorts), y.get("/traffic/all", w, E.getAllTraffic), y.get("/ping", w, E.ping), 
+    k.listen(g, function() {
+        console.log("listening on port", g);
     }).on("error", function(e) {
         console.error("express server error: " + e), process.exit(3);
-    }), e.exports = k;
+    }), e.exports = y;
 }, function(e, r) {
     e.exports = require("babel-polyfill");
 }, function(e, r, t) {
-    t(21), e.exports = t(20);
+    t(20), e.exports = t(19);
 } ]);
