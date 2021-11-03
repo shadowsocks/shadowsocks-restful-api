@@ -21,7 +21,7 @@
     "passport-jwt": "^4.0.0",
     "portastic": "^1.0.1",
     "unix-dgram": "^2.0.2",
-    "validator": "^10.3.0"
+    "validator": "^13.7.0"
   },
   "repository": {
     "type": "git",
