@@ -3,6 +3,42 @@ A secure, reliable, standard restful api for managing shadowsocks-libev.
 
 A web app that manages users, server, nodes, products, accounts, and traffic can be found from [shadowsocks-hub](https://github.com/shadowsocks/shadowsocks-hub).
 
+## Install with Docker
+
+#### Install Docker and Compose plugin:
+```
+curl -fsSL https://get.docker.com -o get-docker.sh
+DRY_RUN=1 sudo sh ./get-docker.sh
+```
+
+#### Download shadowsocks-restful-api:
+```
+cd ~
+git clone https://github.com/shadowsocks/shadowsocks-restful-api.git
+```
+
+#### Change the login password of REST-api:
+```
+cd shadowsocks-restful-api/
+nano .env
+```
+* Note: LOGIN_PASSWORD in .env file, should be long and complex
+
+#### Build and run:
+```
+docker build -t shadow-rest:1.0.0 .
+docker compose up -d
+```
+
+#### Test it with LOGIN_PASSWORD to get jwt token:
+```
+curl -ik -H "Content-Type: application/json" -X POST -d '{"password":"changeThisSecret-long-long-pa$$word!@#123!@#"}' https://<public_ip_of_server>:4001/login
+```
+Response example:  
+```json
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1Mjk0ODg0MTcsImV4cCI6MTUyOTU3NDgxN30.9wdDV4hXvHdCkWhcOFpW2YXvSL6WupWSj2kTI6XMhFk"}
+```
+
 ## Install (Ubuntu 16.04)
 
 #### Download shadowsocks-restful-api:

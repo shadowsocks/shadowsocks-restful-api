@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  shadow-rest:
+    restart: always
+    network_mode: host
+    container_name: shadow-rest
+    image: shadow-rest:1.0.0
+    volumes:
+      - shadow-configs:/root/.shadowsocks/
+
+volumes:
+  shadow-configs:
