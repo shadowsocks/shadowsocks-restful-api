@@ -14,6 +14,9 @@ node_modules
 # Optional npm cache directory
 .npm
 
+# Application environment
+
+
 # Stored port data
 ports.json
 
@@ -24,3 +27,12 @@ ca.srl
 server.cert
 server.key
 server.csr
+
+
+
+Dockerfile
+LICENSE
+README.md
+.gitignore
+.dockerignore
+docker-compose.yml
